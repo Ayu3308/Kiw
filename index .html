@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Untuk Ayu ❤️</title>
+<style>
+body{
+margin:0;font-family:Arial,sans-serif;
+display:flex;justify-content:center;align-items:center;
+height:100vh;overflow:hidden;
+background:linear-gradient(135deg,#ffe6f2,#ffd6eb);
+}
+.container{
+background:#fff;padding:40px;border-radius:30px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+width:350px;text-align:center;z-index:2;
+}
+.kucing-emoji{font-size:100px;animation:goyang 1s infinite;display:block}
+@keyframes goyang{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.area-tombol{display:flex;justify-content:center;gap:20px;margin-top:40px;flex-wrap:wrap}
+button{border:none;border-radius:15px;cursor:pointer;font-weight:bold;transition:.25s}
+#yesBtn{
+background:#4caf50;color:#fff;
+font-size:18px;
+padding:15px 25px;
+position:relative;
+z-index:10;
+}
+#noBtn{background:#ff4d8d;color:#fff;padding:15px 25px;font-size:18px}
+.hearts{position:fixed;top:-20px;pointer-events:none;animation:fall 5s linear forwards;z-index:9999}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:0}}
+#hasil h1{color:#ff4d8d;animation:zoom 1s}
+@keyframes zoom{from{transform:scale(0)}to{transform:scale(1)}}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+<source src="sempurna.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+<div id="konten">
+<span class="kucing-emoji">🐱</span>
+<h1>Irfan sayang Ayu engga?</h1>
+<div class="area-tombol">
+<button id="yesBtn" onclick="menang()">SAYANG BANGET ❤️</button>
+<button id="noBtn" onclick="gantiTeks()">Engga</button>
+</div>
+</div>
+
+<div id="hasil" style="display:none">
+<span class="kucing-emoji">💞</span>
+<h1 id="typing"></h1>
+<p style="font-size:22px">MUAHHHHHHH 💋</p>
+</div>
+</div>
+
+<script>
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+const daftar=["Engga","Masa sih?","KOK GITU?","Pikir dulu 😔","JAHAT 😭","Yakin? 🥺","Klik yang hijau dong ❤️"];
+let i=0;
+let ukuran=1;
+
+function gantiTeks(){
+ i=(i+1)%daftar.length;
+ noBtn.innerText=daftar[i];
+
+ ukuran+=0.8;
+ yesBtn.style.transform=`scale(${ukuran})`;
+ yesBtn.style.fontSize=(18+ukuran*5)+"px";
+ yesBtn.style.padding=(15+ukuran*5)+"px "+(25+ukuran*10)+"px";
+}
+
+function hati(){
+ const h=document.createElement("div");
+ h.className="hearts";
+ const arr=["💖","💕","💗","❤️","💘"];
+ h.innerHTML=arr[Math.floor(Math.random()*arr.length)];
+ h.style.left=Math.random()*100+"vw";
+ h.style.fontSize=(20+Math.random()*30)+"px";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),5000);
+}
+
+function ketik(t){
+ let x=0;
+ const e=document.getElementById("typing");
+ e.innerHTML="";
+ const tm=setInterval(()=>{
+   e.innerHTML+=t.charAt(x++);
+   if(x>t.length) clearInterval(tm);
+ },70);
+}
+
+function menang(){
+ document.getElementById("bgMusic").play().catch(()=>{});
+ if(navigator.vibrate) navigator.vibrate([200,100,200]);
+
+ document.getElementById("konten").style.display="none";
+ document.getElementById("hasil").style.display="block";
+ ketik("AYU JUGA SAYANG IRFANNNNNN ❤️");
+ setInterval(hati,150);
+}
+</script>
+
+</body>
+</html>
